@@ -16,7 +16,8 @@
         <chain base_link="base_link" tip_link="arm_shoulder_link" />
     </group>
     <group name="talos_gripper">
-        <chain base_link="gripper_base_link" tip_link="gripper_movable_claw_link" />
+        <link name="gripper_base_link"/>
+        <link name="gripper_movable_claw_link"/>
     </group>
     <group name="talos_manipulator">
         <group name="talos_arm" />
