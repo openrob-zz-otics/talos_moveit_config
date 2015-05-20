@@ -10,4 +10,9 @@ controller_list:
     action_ns: follow_joint_trajectory
     default: true
     type: FollowJointTrajectory
-	    joints: [base_to_torso]
+    joints: [base_to_torso]
+
+  - name: gripper_controller
+    action_ns: gripper_action_controller
+    type: GripperActionController
+    joints: [arm_wrist_to_gripper_base, gripper_stationary_claw_to_gripper_moveable_claw]
