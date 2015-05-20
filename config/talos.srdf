@@ -1,0 +1,97 @@
+<?xml version="1.0" ?>
+<!--This does not replace URDF, and is not an extension of URDF.
+    This is a format for representing semantic information about the robot structure.
+    A URDF file must exist for this robot as well, where the joints and the links that are referenced are defined
+-->
+<robot name="talos">
+    <!--GROUPS: Representation of a set of joints and links. This can be useful for specifying DOF to plan for, defining arms, end effectors, etc-->
+    <!--LINKS: When a link is specified, the parent joint of that link (if it exists) is automatically included-->
+    <!--JOINTS: When a joint is specified, the child link of that joint (which will always exist) is automatically included-->
+    <!--CHAINS: When a chain is specified, all the links along the chain (including endpoints) are included in the group. Additionally, all the joints that are parents to included links are also included. This means that joints along the chain and the parent joint of the base link are included in the group-->
+    <!--SUBGROUPS: Groups can also be formed by referencing to already defined group names-->
+    <group name="talos_arm">
+        <chain base_link="arm_shoulder_link" tip_link="gripper_base_link" />
+    </group>
+    <group name="talos_base">
+        <chain base_link="base_link" tip_link="arm_shoulder_link" />
+    </group>
+    <group name="talos_gripper">
+        <chain base_link="gripper_base_link" tip_link="gripper_movable_claw_link" />
+    </group>
+    <group name="talos_manipulator">
+        <group name="talos_arm" />
+        <group name="talos_gripper" />
+    </group>
+    <group name="talos_full_robot">
+        <group name="talos_base" />
+        <group name="talos_manipulator" />
+    </group>
+    <!--GROUP STATES: Purpose: Define a named state for a particular group, in terms of joint values. This is useful to define states like 'folded arms'-->
+    <group_state name="pickup" group="talos_arm">
+        <joint name="arm_elbow_block_to_arm_lower_arm" value="-0.5824" />
+        <joint name="arm_elbow_bracket_to_arm_elbow_block" value="0.2118" />
+        <joint name="arm_lower_arm_to_arm_wrist" value="-0.4677" />
+        <joint name="arm_shoulder_to_arm_upper_arm" value="-0.45" />
+        <joint name="arm_upper_arm_to_arm_elbow_bracket" value="0.7853" />
+        <joint name="arm_wrist_to_gripper_base" value="1.5178" />
+        <joint name="gripper_stationary_claw_to_gripper_movable_claw" value="-0.0712" />
+    </group_state>
+    <group_state name="raisearm" group="talos_arm">
+        <joint name="arm_elbow_block_to_arm_lower_arm" value="0.5206" />
+        <joint name="arm_elbow_bracket_to_arm_elbow_block" value="0.0441" />
+        <joint name="arm_lower_arm_to_arm_wrist" value="-0.1588" />
+        <joint name="arm_shoulder_to_arm_upper_arm" value="-0.45" />
+        <joint name="arm_upper_arm_to_arm_elbow_bracket" value="0.75" />
+        <joint name="arm_wrist_to_gripper_base" value="1.4119" />
+        <joint name="gripper_stationary_claw_to_gripper_movable_claw" value="0.6492" />
+    </group_state>
+    <!--END EFFECTOR: Purpose: Represent information about an end effector.-->
+    <end_effector name="talos_end_effector" parent_link="arm_wrist_link" group="talos_gripper" parent_group="talos_arm" />
+    <!--VIRTUAL JOINT: Purpose: this element defines a virtual joint between a robot link and an external frame of reference (considered fixed with respect to the robot)-->
+    <virtual_joint name="fixed_base" type="fixed" parent_frame="world" child_link="base_link" />
+    <!--DISABLE COLLISIONS: By default it is assumed that any link of the robot could potentially come into collision with any other link in the robot. This tag disables collision checking between a specified pair of links. -->
+    <disable_collisions link1="arm_elbow_block_link" link2="arm_elbow_bracket_link" reason="Adjacent" />
+    <disable_collisions link1="arm_elbow_block_link" link2="arm_lower_arm_link" reason="Adjacent" />
+    <disable_collisions link1="arm_elbow_block_link" link2="arm_shoulder_link" reason="Never" />
+    <disable_collisions link1="arm_elbow_block_link" link2="arm_wrist_link" reason="Never" />
+    <disable_collisions link1="arm_elbow_block_link" link2="base_link" reason="Never" />
+    <disable_collisions link1="arm_elbow_block_link" link2="gripper_base_link" reason="Never" />
+    <disable_collisions link1="arm_elbow_block_link" link2="gripper_movable_claw_link" reason="Never" />
+    <disable_collisions link1="arm_elbow_block_link" link2="gripper_stationary_claw_link" reason="Never" />
+    <disable_collisions link1="arm_elbow_block_link" link2="torso_link" reason="Never" />
+    <disable_collisions link1="arm_elbow_bracket_link" link2="arm_shoulder_link" reason="Never" />
+    <disable_collisions link1="arm_elbow_bracket_link" link2="arm_upper_arm_link" reason="Adjacent" />
+    <disable_collisions link1="arm_elbow_bracket_link" link2="arm_wrist_link" reason="Never" />
+    <disable_collisions link1="arm_elbow_bracket_link" link2="base_link" reason="Never" />
+    <disable_collisions link1="arm_elbow_bracket_link" link2="gripper_base_link" reason="Never" />
+    <disable_collisions link1="arm_elbow_bracket_link" link2="gripper_movable_claw_link" reason="Never" />
+    <disable_collisions link1="arm_elbow_bracket_link" link2="gripper_stationary_claw_link" reason="Never" />
+    <disable_collisions link1="arm_elbow_bracket_link" link2="torso_link" reason="Never" />
+    <disable_collisions link1="arm_lower_arm_link" link2="arm_shoulder_link" reason="Never" />
+    <disable_collisions link1="arm_lower_arm_link" link2="arm_upper_arm_link" reason="Never" />
+    <disable_collisions link1="arm_lower_arm_link" link2="arm_wrist_link" reason="Adjacent" />
+    <disable_collisions link1="arm_lower_arm_link" link2="base_link" reason="Never" />
+    <disable_collisions link1="arm_lower_arm_link" link2="gripper_base_link" reason="Never" />
+    <disable_collisions link1="arm_lower_arm_link" link2="gripper_movable_claw_link" reason="Never" />
+    <disable_collisions link1="arm_lower_arm_link" link2="gripper_stationary_claw_link" reason="Never" />
+    <disable_collisions link1="arm_shoulder_link" link2="arm_upper_arm_link" reason="Adjacent" />
+    <disable_collisions link1="arm_shoulder_link" link2="arm_wrist_link" reason="Never" />
+    <disable_collisions link1="arm_shoulder_link" link2="base_link" reason="Never" />
+    <disable_collisions link1="arm_shoulder_link" link2="gripper_base_link" reason="Never" />
+    <disable_collisions link1="arm_shoulder_link" link2="gripper_movable_claw_link" reason="Never" />
+    <disable_collisions link1="arm_shoulder_link" link2="gripper_stationary_claw_link" reason="Never" />
+    <disable_collisions link1="arm_shoulder_link" link2="torso_link" reason="Adjacent" />
+    <disable_collisions link1="arm_upper_arm_link" link2="arm_wrist_link" reason="Never" />
+    <disable_collisions link1="arm_upper_arm_link" link2="base_link" reason="Never" />
+    <disable_collisions link1="arm_upper_arm_link" link2="gripper_base_link" reason="Never" />
+    <disable_collisions link1="arm_upper_arm_link" link2="gripper_movable_claw_link" reason="Never" />
+    <disable_collisions link1="arm_upper_arm_link" link2="gripper_stationary_claw_link" reason="Never" />
+    <disable_collisions link1="arm_wrist_link" link2="base_link" reason="Never" />
+    <disable_collisions link1="arm_wrist_link" link2="gripper_base_link" reason="Adjacent" />
+    <disable_collisions link1="arm_wrist_link" link2="gripper_movable_claw_link" reason="Never" />
+    <disable_collisions link1="arm_wrist_link" link2="gripper_stationary_claw_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="torso_link" reason="Adjacent" />
+    <disable_collisions link1="gripper_base_link" link2="gripper_movable_claw_link" reason="Never" />
+    <disable_collisions link1="gripper_base_link" link2="gripper_stationary_claw_link" reason="Adjacent" />
+    <disable_collisions link1="gripper_movable_claw_link" link2="gripper_stationary_claw_link" reason="Adjacent" />
+</robot>

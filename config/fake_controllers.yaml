@@ -1,0 +1,36 @@
+controller_list:
+  - name: fake_talos_arm_controller
+    joints:
+      - arm_shoulder_to_arm_upper_arm
+      - arm_upper_arm_to_arm_elbow_bracket
+      - arm_elbow_bracket_to_arm_elbow_block
+      - arm_elbow_block_to_arm_lower_arm
+      - arm_lower_arm_to_arm_wrist
+      - arm_wrist_to_gripper_base
+  - name: fake_talos_base_controller
+    joints:
+      - base_to_torso
+      - torso_to_arm_shoulder
+  - name: fake_talos_gripper_controller
+    joints:
+      - gripper_stationary_claw_to_gripper_movable_claw
+  - name: fake_talos_manipulator_controller
+    joints:
+      - arm_shoulder_to_arm_upper_arm
+      - arm_upper_arm_to_arm_elbow_bracket
+      - arm_elbow_bracket_to_arm_elbow_block
+      - arm_elbow_block_to_arm_lower_arm
+      - arm_lower_arm_to_arm_wrist
+      - arm_wrist_to_gripper_base
+      - gripper_stationary_claw_to_gripper_movable_claw
+  - name: fake_talos_full_robot_controller
+    joints:
+      - base_to_torso
+      - torso_to_arm_shoulder
+      - arm_shoulder_to_arm_upper_arm
+      - arm_upper_arm_to_arm_elbow_bracket
+      - arm_elbow_bracket_to_arm_elbow_block
+      - arm_elbow_block_to_arm_lower_arm
+      - arm_lower_arm_to_arm_wrist
+      - arm_wrist_to_gripper_base
+      - gripper_stationary_claw_to_gripper_movable_claw
