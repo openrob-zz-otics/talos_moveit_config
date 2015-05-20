@@ -1,0 +1,13 @@
+controller_list:
+ 
+  - name: arm_controller
+    action_ns: follow_joint_trajectory
+    default: true
+    type: FollowJointTrajectory
+    joints: [torso_to_arm_shoulder, arm_shoulder_to_arm_upper_arm, arm_upper_arm_to_arm_elbow_bracket, arm_elbow_bracket_to_arm_elbow_block, arm_elbow_block_to_arm_lower_arm, arm_lower_arm_to_arm_wrist]
+
+  - name: torso_controller
+    action_ns: follow_joint_trajectory
+    default: true
+    type: FollowJointTrajectory
+	    joints: [base_to_torso]
